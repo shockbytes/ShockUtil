@@ -175,7 +175,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
 
         }
 
-        public abstract void bind(T t);
+        abstract void bind(T t);
 
     }
 
