@@ -148,7 +148,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
 
     public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
-        private T content;
+        protected T content;
 
         ViewHolder(final View itemView) {
             super(itemView);
