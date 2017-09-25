@@ -1,5 +1,6 @@
 package at.shockbytes.util;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -51,9 +53,9 @@ public class ResourceManager {
      * @return The URI of the own profile image set in the contacts app
      */
     @Nullable
+    @RequiresPermission (Manifest.permission.READ_CONTACTS)
     public static Uri loadProfileImage(Context context) {
 
-        //Cursor für Profildaten laden
         Cursor c = context.getContentResolver().query(
                 ContactsContract.Profile.CONTENT_URI, null, null, null, null);
 
@@ -61,22 +63,17 @@ public class ResourceManager {
             return null;
         }
 
-        //Index von Foto-URI laden
-        int index_photo_uri = c
-                .getColumnIndex(ContactsContract.Profile.PHOTO_URI);
-
-        //Über Cursor iterieren
+        int index_photo_uri = c.getColumnIndex(ContactsContract.Profile.PHOTO_URI);
         if (c.moveToNext()) {
-            String uri_string = c.getString(index_photo_uri); //URI-String laden
-
+            String uri_string = c.getString(index_photo_uri);
             if (uri_string != null) {
                 c.close();
-                return Uri.parse(uri_string); //String in URI parsen
+                return Uri.parse(uri_string);
             }
         }
 
         c.close();
-        return null; //default return null
+        return null;
     }
 
     /**
@@ -85,9 +82,9 @@ public class ResourceManager {
      * @param context Application context
      * @return The name of the own profile set in the contacts app
      */
+    @RequiresPermission (Manifest.permission.READ_CONTACTS)
     public static String loadProfileName(Context context) {
 
-        //Cursor für Profildaten laden
         Cursor c = context.getContentResolver().query(
                 ContactsContract.Profile.CONTENT_URI, null, null, null, null);
 
@@ -95,21 +92,15 @@ public class ResourceManager {
             return "";
         }
 
-        //Index von Profilnamen laden
-        int index_name = c
-                .getColumnIndex(ContactsContract.Profile.DISPLAY_NAME);
-
-        //Über Cursor iterieren
+        int index_name = c.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME);
         if (c.moveToNext()) {
-
             String name = c.getString(index_name);
             c.close();
-
-            return name; //Namen zurückgeben
+            return name;
         }
 
         c.close();
-        return ""; //default return
+        return "";
     }
 
     /**
@@ -222,18 +213,15 @@ public class ResourceManager {
     public static <T extends Serializable> void save(Context context, T obj,
                                                      String filename) throws IOException {
 
-        //Null pointer will be handled as an empty list
         if (obj == null || filename == null) {
             return;
         }
 
-        //Create outputstreams
         FileOutputStream fos = context.openFileOutput(filename,
                 Context.MODE_PRIVATE);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        //Write object
         oos.writeObject(obj);
-        //Close streams
+
         oos.close();
         fos.close();
     }
