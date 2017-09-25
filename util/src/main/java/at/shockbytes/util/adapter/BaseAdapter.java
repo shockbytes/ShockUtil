@@ -150,7 +150,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
 
         protected T content;
 
-        ViewHolder(final View itemView) {
+        protected ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
