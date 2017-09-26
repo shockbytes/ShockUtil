@@ -1,6 +1,5 @@
 <resources>
 
     <string name="app_name">ShockUtil</string>
-    <string name="fingerprint_rationale">This app needs to access your fingerprint.</string>
 
 </resources>

@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
  * @author Martin Macheiner
  *         Date: 05.03.2017.
  */
+@SuppressWarnings({"WeakerAccess", "unused", "unchecked"})
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.ViewHolder> {
 
     public interface OnItemClickListener<T> {
@@ -150,7 +151,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
 
         protected T content;
 
-        protected ViewHolder(final View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
@@ -165,14 +166,12 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-
                     if (onItemLongClickListener != null) {
                         onItemLongClickListener.onItemLongClick(content, itemView);
                     }
                     return true;
                 }
             });
-
         }
 
         public abstract void bind(T t);
