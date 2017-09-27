@@ -30,6 +30,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.0.0'
     compile 'com.android.support:support-v4:26.0.0'
     compile 'com.android.support:design:26.0.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
     compile 'net.danlew:android.joda:2.9.9'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
