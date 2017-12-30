@@ -10,14 +10,19 @@ import android.support.v7.widget.helper.ItemTouchHelper
  */
 class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
                           private val allowSwipeToDismiss: Boolean,
-                          private val allowDragInAllDirections: Boolean) : ItemTouchHelper.Callback() {
+                          private val dragAccess: DragAccess) : ItemTouchHelper.Callback() {
 
+    enum class DragAccess {
+        NONE, VERTICAL, ALL 
+    }
+  
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-        val dragFlags = if (!allowDragInAllDirections)
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        else
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END
+        val dragFlags = when (dragAccess) {
+            DragAccess.NONE -> 0
+            DragAccess.VERTICAL -> ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            DragAccess.ALL -> ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END
+        }
         return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
     }
 
