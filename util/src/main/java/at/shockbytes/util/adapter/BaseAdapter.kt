@@ -13,17 +13,17 @@ import java.util.*
 abstract class BaseAdapter<T>(protected var context: Context,
                               extData: List<T>) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
 
-    interface OnItemClickListener<in T> {
+    interface OnItemClickListener<T> {
 
         fun onItemClick(t: T, v: View)
     }
 
-    interface OnItemLongClickListener<in T> {
+    interface OnItemLongClickListener<T> {
 
         fun onItemLongClick(t: T, v: View)
     }
 
-    interface OnItemMoveListener<in T> {
+    interface OnItemMoveListener<T> {
 
         fun onItemMove(t: T, from: Int, to: Int)
 
