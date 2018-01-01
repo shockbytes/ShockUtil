@@ -1,4 +1,4 @@
-package at.shockbytes.coins.util.ui
+package at.shockbytes.util.view
 
 import android.content.Context
 import android.support.design.widget.CoordinatorLayout
