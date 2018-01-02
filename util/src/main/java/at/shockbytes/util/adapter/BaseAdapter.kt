@@ -11,7 +11,7 @@ import java.util.*
  * Date: 05.03.2017.
  */
 abstract class BaseAdapter<T>(protected var context: Context,
-                              extData: List<T>) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
+                              extData: MutableList<T>) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
 
     interface OnItemClickListener<in T> {
 
@@ -32,10 +32,13 @@ abstract class BaseAdapter<T>(protected var context: Context,
         fun onItemDismissed(t: T, position: Int)
     }
 
-    open var data: MutableList<T> = ArrayList()
+    var data: MutableList<T> = ArrayList()
         set(value) {
 
-            field = ArrayList()
+            //Remove all deleted items
+            (field.size - 1 downTo 0)
+                    .filter { getLocation(value, field[it]) < 0 }
+                    .forEach { deleteEntity(it) }
 
             //Add and move items
             for (i in value.indices) {
@@ -47,7 +50,6 @@ abstract class BaseAdapter<T>(protected var context: Context,
                     moveEntity(i, location)
                 }
             }
-            notifyDataSetChanged()
         }
 
     protected var inflater: LayoutInflater = LayoutInflater.from(context)
@@ -57,7 +59,7 @@ abstract class BaseAdapter<T>(protected var context: Context,
     var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
     init {
-        data = extData.toMutableList()
+        data = extData
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
