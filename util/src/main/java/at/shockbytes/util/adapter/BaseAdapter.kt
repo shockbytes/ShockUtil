@@ -32,7 +32,7 @@ abstract class BaseAdapter<T>(protected var context: Context,
         fun onItemDismissed(t: T, position: Int)
     }
 
-    var data: MutableList<T> = ArrayList()
+    open var data: MutableList<T> = ArrayList()
         set(value) {
 
             //Remove all deleted items
