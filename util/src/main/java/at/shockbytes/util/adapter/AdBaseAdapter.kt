@@ -14,7 +14,7 @@ import java.util.*
  * @author Martin Macheiner
  * Date: 26.12.2017.
  */
-abstract class AdBaseAdapter<T>(c: Context, d: List<T>) : BaseAdapter<T>(c, d) {
+abstract class AdBaseAdapter<T>(c: Context, d: List<T>) : BaseAdapter<T>(c, d.toMutableList() {
 
     var adPosition = 2
 
@@ -28,7 +28,11 @@ abstract class AdBaseAdapter<T>(c: Context, d: List<T>) : BaseAdapter<T>(c, d) {
     override var data: MutableList<T> = ArrayList()
         set(value) {
 
-            field = ArrayList()
+            //Remove all deleted items
+            (field.size - 1 downTo 0)
+                    .filter { getLocation(value, field[it]) < 0 }
+                    .forEach { deleteEntity(it) }
+
             //Add and move items
             for (i in value.indices) {
                 val entity = value[i]
@@ -39,9 +43,8 @@ abstract class AdBaseAdapter<T>(c: Context, d: List<T>) : BaseAdapter<T>(c, d) {
                     moveEntity(i, location)
                 }
             }
-
+			
             addAdvertisementEntity()
-            notifyDataSetChanged()
         }
 
     abstract val testDeviceId: String
