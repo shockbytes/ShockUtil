@@ -14,7 +14,7 @@ import java.util.*
  * @author Martin Macheiner
  * Date: 26.12.2017.
  */
-abstract class AdBaseAdapter<T>(c: Context, d: List<T>) : BaseAdapter<T>(c, d.toMutableList() {
+abstract class AdBaseAdapter<T>(c: Context, d: List<T>) : BaseAdapter<T>(c, d.toMutableList()) {
 
     var adPosition = 2
 
