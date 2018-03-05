@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.MediaStore
@@ -84,11 +85,21 @@ object AppUtils {
         return bitmap
     }
 
+    private fun getBitmap(vectorDrawable: VectorDrawable, padding: Int): Bitmap {
+        val bitmap = Bitmap.createBitmap(vectorDrawable.intrinsicWidth,
+                vectorDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        vectorDrawable.setBounds(padding, padding, canvas.width - padding, canvas.height - padding)
+        vectorDrawable.draw(canvas)
+        return bitmap
+    }
+
     private fun getBitmap(context: Context, drawableId: Int): Bitmap {
 
         val drawable = AppCompatDrawableManager.get().getDrawable(context, drawableId)
         return when (drawable) {
             is BitmapDrawable -> BitmapFactory.decodeResource(context.resources, drawableId)
+            is VectorDrawable -> getBitmap(drawable, convertDpInPixel(24, context))
             is VectorDrawableCompat -> getBitmap(drawable, convertDpInPixel(24, context))
             else -> throw IllegalArgumentException("Unsupported drawable type")
         }
