@@ -11,7 +11,8 @@ import android.view.View
  * @author Martin Macheiner
  * Date: 28.10.2015.
  */
-class ScrollAwareFloatingActionButtonBehavior(cxt: Context, attrs: AttributeSet) : FloatingActionButton.Behavior(cxt, attrs) {
+class ScrollAwareFloatingActionButtonBehavior(context: Context, attrs: AttributeSet)
+    : FloatingActionButton.Behavior(context, attrs) {
 
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout,
                                      child: FloatingActionButton,

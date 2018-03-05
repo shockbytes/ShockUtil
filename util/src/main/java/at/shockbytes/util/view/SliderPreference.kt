@@ -88,7 +88,7 @@ class SliderPreference : DialogPreference, OnSeekBarChangeListener, OnClickListe
         }
     }
 
-    override fun showDialog(state: Bundle) {
+    override fun showDialog(state: Bundle?) {
         super.showDialog(state)
 
         val positiveButton = (dialog as AlertDialog)
