@@ -1,12 +1,12 @@
 package at.shockbytes.util.adapter
 
 import android.graphics.Canvas
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 
 /**
- * @author Martin Macheiner
- * Date: 09.09.2015.
+ * @author  Martin Macheiner
+ * Date:    09.09.2015.
  */
 class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
                           private val allowSwipeToDismiss: Boolean,
@@ -55,7 +55,7 @@ class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
         return true
     }
 
-    override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder) {
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
         adapter.onItemMoveFinished()
     }

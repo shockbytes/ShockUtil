@@ -6,21 +6,22 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import android.net.Uri
+import android.os.Build
 import android.provider.ContactsContract
 import android.provider.MediaStore
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.RequiresPermission
-import android.support.graphics.drawable.VectorDrawableCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
-import android.support.v7.widget.AppCompatDrawableManager
-import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.DatePicker
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresPermission
+import androidx.appcompat.widget.AppCompatDrawableManager
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import java.io.IOException
 import java.io.ObjectOutputStream
 import java.io.Serializable
@@ -97,11 +98,16 @@ object AppUtils {
     private fun getBitmap(context: Context, drawableId: Int): Bitmap {
 
         val drawable = AppCompatDrawableManager.get().getDrawable(context, drawableId)
-        return when (drawable) {
-            is BitmapDrawable -> BitmapFactory.decodeResource(context.resources, drawableId)
-            is VectorDrawable -> getBitmap(drawable, convertDpInPixel(24, context))
-            is VectorDrawableCompat -> getBitmap(drawable, convertDpInPixel(24, context))
-            else -> throw IllegalArgumentException("Unsupported drawable type")
+
+        // Handle special case if drawable is vector drawable, which is only supported in API level 21
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && (drawable is VectorDrawable)) {
+            getBitmap(drawable, convertDpInPixel(24, context))
+        } else {
+            when (drawable) {
+                is BitmapDrawable -> BitmapFactory.decodeResource(context.resources, drawableId)
+                is VectorDrawableCompat -> getBitmap(drawable, convertDpInPixel(24, context))
+                else -> throw IllegalArgumentException("Unsupported drawable type")
+            }
         }
     }
 

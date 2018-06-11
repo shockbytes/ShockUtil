@@ -1,9 +1,9 @@
 package at.shockbytes.util.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author Martin Macheiner
@@ -17,10 +17,10 @@ class RecyclerViewWithEmptyView : RecyclerView {
 
         override fun onChanged() {
 
-            if (adapter.itemCount == 0 && mEmptyView?.alpha == 0f) {
+            if (adapter?.itemCount == 0 && mEmptyView?.alpha == 0f) {
                 mEmptyView?.animate()?.alpha(1f)?.start()
                 isNestedScrollingEnabled = false
-            } else if (adapter.itemCount != 0 && mEmptyView?.alpha == 1f) {
+            } else if (adapter?.itemCount != 0 && mEmptyView?.alpha == 1f) {
                 mEmptyView?.animate()?.alpha(0f)?.start()
                 isNestedScrollingEnabled = true
             }

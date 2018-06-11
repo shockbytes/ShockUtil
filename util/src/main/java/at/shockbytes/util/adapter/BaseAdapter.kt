@@ -1,14 +1,14 @@
 package at.shockbytes.util.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 /**
- * @author Martin Macheiner
- * Date: 05.03.2017.
+ * @author  Martin Macheiner
+ * Date:    05.03.2017.
  */
 abstract class BaseAdapter<T>(protected var context: Context,
                               extData: MutableList<T>) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
