@@ -6,17 +6,17 @@ apply plugin: 'kotlin-android-extensions'
 
 group='com.github.shockbytes'
 
-def supportVersion = "1.0.0-alpha3"
+def supportVersion = "1.0.0"
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.0"
+    buildToolsVersion "28.0.2"
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 6
-        versionName "3.0"
+        versionCode 7
+        versionName "3.1"
     }
     buildTypes {
         release {
