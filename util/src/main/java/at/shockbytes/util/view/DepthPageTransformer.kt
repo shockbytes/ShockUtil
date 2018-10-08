@@ -4,12 +4,18 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 
 /**
- * @author Martin Macheiner
- * Date: 03.12.2015.
+ * @author  Martin Macheiner
+ * Date:    03.12.2015
  */
 class DepthPageTransformer : ViewPager.PageTransformer {
 
-    private val minScale = 0.75f
+    private var minScale = 0.75f
+        set(value) {
+            if (value < 0f) {
+                throw IllegalArgumentException("Minimum scale $value cannot be < 0!")
+            }
+            field = value
+        }
 
     override fun transformPage(page: View, position: Float) {
 
@@ -32,6 +38,13 @@ class DepthPageTransformer : ViewPager.PageTransformer {
                 page.scaleX = scaleFactor
             }
             else -> page.alpha = 0f
+        }
+    }
+
+    companion object {
+
+        fun withScale(scale: Float): DepthPageTransformer = DepthPageTransformer().apply {
+            this.minScale = scale
         }
     }
 

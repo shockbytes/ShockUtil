@@ -12,7 +12,7 @@ import android.view.animation.Transformation
 
 object ViewManager {
 
-    private val animationScaleTime = 1.5f
+    private const val ANIMATION_SCALE_FACTOR = 1.5f
 
     fun createStringBitmap(width: Int, color: Int, text: String): Bitmap {
 
@@ -69,7 +69,7 @@ object ViewManager {
         }
         a.interpolator = interpolator
         if (duration <= 0) {
-            a.duration = (animationScaleTime * targetHeight
+            a.duration = (ANIMATION_SCALE_FACTOR * targetHeight
                     / v.context.resources.displayMetrics.density).toLong()
         } else {
             a.duration = duration
@@ -100,7 +100,7 @@ object ViewManager {
         }
         a.interpolator = interpolator
         if (duration <= 0) {
-            a.duration = (animationScaleTime * initialHeight
+            a.duration = (ANIMATION_SCALE_FACTOR * initialHeight
                     / v.context.resources.displayMetrics.density).toLong()
         } else {
             a.duration = duration

@@ -1,8 +1,8 @@
 package at.shockbytes.util.adapter
 
 /**
- * @author Martin Macheiner
- * Date: 09.09.2015.
+ * @author  Martin Macheiner
+ * Date:    09.09.2015
  */
 interface ItemTouchHelperAdapter {
 

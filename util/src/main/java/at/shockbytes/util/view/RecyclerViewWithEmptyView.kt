@@ -6,8 +6,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * @author Martin Macheiner
- * Date: 15.12.2015.
+ * @author  Martin Macheiner
+ * Date:    15.12.2015
  */
 class RecyclerViewWithEmptyView : RecyclerView {
 

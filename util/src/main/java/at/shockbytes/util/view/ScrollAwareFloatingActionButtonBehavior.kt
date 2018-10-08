@@ -8,8 +8,8 @@ import androidx.core.view.ViewCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
- * @author Martin Macheiner
- * Date: 28.10.2015.
+ * @author  Martin Macheiner
+ * Date:    28.10.2015
  */
 class ScrollAwareFloatingActionButtonBehavior(context: Context, attrs: AttributeSet)
     : FloatingActionButton.Behavior(context, attrs) {
