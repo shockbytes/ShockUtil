@@ -8,14 +8,20 @@ import android.widget.Scroller
 import androidx.viewpager.widget.ViewPager
 
 /**
- * @author Martin Macheiner
- * Date: 19.03.2015.
+ * @author  Martin Macheiner
+ * Date:    19.03.2015
  */
 class NonSwipeableViewPager : ViewPager {
 
     private var mScroller: NonSwipeableScroller? = null
 
     var duration: Int = 1000
+        set(value) {
+            if (value <= 0) {
+                throw IllegalArgumentException("Duration $duration cannot be < 0!")
+            }
+            field = value
+        }
 
     constructor(context: Context) : super(context) {
         initialize()

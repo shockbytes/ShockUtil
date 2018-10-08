@@ -54,8 +54,7 @@ class SliderPreference : DialogPreference, OnSeekBarChangeListener, OnClickListe
     }
 
     override fun onCreateDialogView(): View {
-        val v = LayoutInflater.from(context).inflate(R.layout.util_slider_pref,
-                null, false)
+        val v = LayoutInflater.from(context).inflate(R.layout.util_slider_pref, null, false)
 
         valueText = v.findViewById(R.id.util_slider_pref_txt_value) as TextView
         seekbar = v.findViewById(R.id.util_slider_pref_seekbar) as SeekBar

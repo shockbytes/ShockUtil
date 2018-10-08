@@ -8,9 +8,9 @@ import java.util.*
 
 /**
  * @author  Martin Macheiner
- * Date:    05.03.2017.
+ * Date:    05.03.2017
  */
-abstract class BaseAdapter<T>(protected var context: Context,
+abstract class BaseAdapter<T: Any>(protected val context: Context,
                               extData: MutableList<T>) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
 
     interface OnItemClickListener<T> {
@@ -52,7 +52,7 @@ abstract class BaseAdapter<T>(protected var context: Context,
             }
         }
 
-    protected var inflater: LayoutInflater = LayoutInflater.from(context)
+    protected val inflater: LayoutInflater = LayoutInflater.from(context)
 
     var onItemMoveListener: OnItemMoveListener<T>? = null
     var onItemClickListener: OnItemClickListener<T>? = null
@@ -125,39 +125,33 @@ abstract class BaseAdapter<T>(protected var context: Context,
         return getLocation(data, searching)
     }
 
-    protected fun getLocation(data: List<T>, searching: T): Int {
-
-        for (j in data.indices) {
-            val newEntity = data[j]
-            if (searching == newEntity) {
-                return j
-            }
-        }
-        return -1
-    }
     //----------------------------------------------------------------------
+
+    private fun getLocation(data: List<T>, searching: T): Int {
+        return data.indexOf(searching)
+    }
 
     abstract inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        protected var content: T? = null
+        protected lateinit var content: T
 
-        init {
-            itemView.setOnClickListener {
-                if (content != null){
-                    onItemClickListener?.onItemClick(content!!, itemView)
-                }
-            }
-            itemView.setOnLongClickListener {
-                if (content != null) {
-                    onItemLongClickListener?.onItemLongClick(content!!, itemView)
-                    true
-                } else {
-                    false
-                }
-            }
+        fun bind(t: T) {
+            content = t
+            bindToView(t)
+            setClickListener()
         }
 
-        abstract fun bind(t: T)
+        abstract fun bindToView(t: T)
+
+        private fun setClickListener() {
+            itemView.setOnClickListener {
+                onItemClickListener?.onItemClick(content, itemView)
+            }
+            itemView.setOnLongClickListener {
+                onItemLongClickListener?.onItemLongClick(content, itemView)
+                true
+            }
+        }
 
     }
 

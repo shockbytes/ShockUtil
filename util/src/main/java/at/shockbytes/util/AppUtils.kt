@@ -58,16 +58,11 @@ object AppUtils {
     @RequiresPermission(Manifest.permission.READ_CONTACTS)
     fun getProfileName(context: Context): String {
 
-        val c = context.contentResolver.query(
-                ContactsContract.Profile.CONTENT_URI, null,
+        val c = context.contentResolver.query(ContactsContract.Profile.CONTENT_URI, null,
                 null, null, null) ?: return ""
 
         val idxName = c.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)
-        val name = if (c.moveToNext()) {
-            c.getString(idxName)
-        } else {
-            ""
-        }
+        val name = if (c.moveToNext()) { c.getString(idxName) } else { "" }
         c.close()
         return name
     }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author  Martin Macheiner
- * Date:    09.09.2015.
+ * Date:    09.09.2015
  */
 class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
                           private val allowSwipeToDismiss: Boolean,
