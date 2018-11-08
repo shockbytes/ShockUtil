@@ -1,17 +1,16 @@
 package at.shockbytes.util.adapter
 
 import android.content.Context
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-import java.util.*
 
 /**
  * @author  Martin Macheiner
  * Date:    05.03.2017
  */
 abstract class BaseAdapter<T: Any>(protected val context: Context,
-                              extData: MutableList<T>) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
+                              extData: MutableList<T> = mutableListOf()) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
 
     interface OnItemClickListener<T> {
 
@@ -32,7 +31,7 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
         fun onItemDismissed(t: T, position: Int)
     }
 
-    open var data: MutableList<T> = ArrayList()
+    open var data: MutableList<T> = mutableListOf()
         set(value) {
 
             //Remove all deleted items

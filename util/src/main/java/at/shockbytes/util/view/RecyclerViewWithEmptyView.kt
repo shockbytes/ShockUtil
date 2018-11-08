@@ -1,9 +1,9 @@
 package at.shockbytes.util.view
 
 import android.content.Context
+import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author  Martin Macheiner
