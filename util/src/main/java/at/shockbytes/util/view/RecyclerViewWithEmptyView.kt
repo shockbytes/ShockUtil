@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 
 /**
- * @author  Martin Macheiner
+ * Author:  Martin Macheiner
  * Date:    15.12.2015
  */
 class RecyclerViewWithEmptyView : RecyclerView {
@@ -43,6 +43,4 @@ class RecyclerViewWithEmptyView : RecyclerView {
     fun setEmptyView(emptyView: View) {
         mEmptyView = emptyView
     }
-
-
 }

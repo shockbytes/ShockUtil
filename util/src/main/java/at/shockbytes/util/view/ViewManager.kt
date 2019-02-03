@@ -2,7 +2,11 @@ package at.shockbytes.util.view
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.view.animation.Animation
@@ -19,7 +23,7 @@ object ViewManager {
         val config = Bitmap.Config.ARGB_8888
         val bmp = Bitmap.createBitmap(width, width, config)
 
-        //Text paint settings
+        // Text paint settings
         val tPt = Paint()
         tPt.isAntiAlias = true
         tPt.isSubpixelText = true
@@ -54,8 +58,10 @@ object ViewManager {
 
         val a = object : Animation() {
 
-            override fun applyTransformation(interpolatedTime: Float,
-                                             t: Transformation) {
+            override fun applyTransformation(
+                interpolatedTime: Float,
+                t: Transformation
+            ) {
                 v.layoutParams.height = if (interpolatedTime == 1f)
                     LayoutParams.WRAP_CONTENT
                 else
@@ -69,8 +75,11 @@ object ViewManager {
         }
         a.interpolator = interpolator
         if (duration <= 0) {
-            a.duration = (ANIMATION_SCALE_FACTOR * targetHeight
-                    / v.context.resources.displayMetrics.density).toLong()
+            a.duration = (
+                    ANIMATION_SCALE_FACTOR *
+                    targetHeight /
+                    v.context.resources.displayMetrics.density
+                    ).toLong()
         } else {
             a.duration = duration
         }
@@ -83,8 +92,10 @@ object ViewManager {
         val initialHeight = v.measuredHeight
         val a = object : Animation() {
 
-            override fun applyTransformation(interpolatedTime: Float,
-                                             t: Transformation) {
+            override fun applyTransformation(
+                interpolatedTime: Float,
+                t: Transformation
+            ) {
 
                 if (interpolatedTime == 1f) {
                     v.visibility = View.GONE
@@ -100,12 +111,14 @@ object ViewManager {
         }
         a.interpolator = interpolator
         if (duration <= 0) {
-            a.duration = (ANIMATION_SCALE_FACTOR * initialHeight
-                    / v.context.resources.displayMetrics.density).toLong()
+            a.duration = (
+                    ANIMATION_SCALE_FACTOR *
+                    initialHeight /
+                    v.context.resources.displayMetrics.density
+                    ).toLong()
         } else {
             a.duration = duration
         }
         v.startAnimation(a)
     }
-
 }

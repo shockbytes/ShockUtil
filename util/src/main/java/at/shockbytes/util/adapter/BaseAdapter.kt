@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 
 /**
- * @author  Martin Macheiner
+ * Author:  Martin Macheiner
  * Date:    05.03.2017
  */
-abstract class BaseAdapter<T: Any>(protected val context: Context,
-                              extData: MutableList<T> = mutableListOf()) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
+abstract class BaseAdapter<T : Any>(
+    protected val context: Context
+) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
 
     interface OnItemClickListener<T> {
 
@@ -34,19 +35,19 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
     open var data: MutableList<T> = mutableListOf()
         set(value) {
 
-            //Remove all deleted items
+            // Remove all deleted items
             (field.size - 1 downTo 0)
                     .filter { getLocation(value, field[it]) < 0 }
                     .forEach { deleteEntity(it) }
 
-            //Add and move items
-            for (i in value.indices) {
-                val entity = value[i]
+            // Add and move items
+            for (index in value.indices) {
+                val entity = value[index]
                 val location = getLocation(field, entity)
                 if (location < 0) {
-                    addEntity(i, entity)
-                } else if (location != i) {
-                    moveEntity(i, location)
+                    addEntity(index, entity)
+                } else if (location != index && location < data.size) {
+                    moveEntity(index, location)
                 }
             }
         }
@@ -57,10 +58,6 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
     var onItemClickListener: OnItemClickListener<T>? = null
     var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
-    init {
-        data = extData
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(data[position])
     }
@@ -69,7 +66,7 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
         return data.size
     }
 
-    //-----------------------------Data Section-----------------------------
+    // -----------------------------Data Section-----------------------------
     fun addEntity(i: Int, entity: T) {
         data.add(i, entity)
         notifyItemInserted(i)
@@ -113,10 +110,10 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
         notifyDataSetChanged()
     }
 
-    fun moveEntity(i: Int, dest: Int) {
-        val temp = data.removeAt(i)
-        data.add(dest, temp)
-        notifyItemMoved(i, dest)
+    fun moveEntity(index: Int, location: Int) {
+        val temp = data.removeAt(index)
+        data.add(location, temp)
+        notifyItemMoved(index, location)
         notifyDataSetChanged()
     }
 
@@ -124,7 +121,7 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
         return getLocation(data, searching)
     }
 
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
     private fun getLocation(data: List<T>, searching: T): Int {
         return data.indexOf(searching)
@@ -151,7 +148,5 @@ abstract class BaseAdapter<T: Any>(protected val context: Context,
                 true
             }
         }
-
     }
-
 }

@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager
 import android.view.View
 
 /**
- * @author  Martin Macheiner
+ * Author:  Martin Macheiner
  * Date:    03.12.2015
  */
 class DepthPageTransformer : ViewPager.PageTransformer {
@@ -47,5 +47,4 @@ class DepthPageTransformer : ViewPager.PageTransformer {
             this.minScale = scale
         }
     }
-
 }

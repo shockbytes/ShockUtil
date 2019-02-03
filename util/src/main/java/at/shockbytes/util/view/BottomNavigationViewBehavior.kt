@@ -17,18 +17,27 @@ class BottomNavigationViewBehavior(context: Context, attrs: AttributeSet)
         return super.onLayoutChild(parent, child, layoutDirection)
     }
 
-    override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout,
-                                     child: BottomNavigationView,
-                                     directTargetChild: View,
-                                     target: View, axes: Int, type: Int): Boolean {
+    override fun onStartNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: BottomNavigationView,
+        directTargetChild: View,
+        target: View,
+        axes: Int,
+        type: Int
+    ): Boolean {
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
-    override fun onNestedScroll(coordinatorLayout: CoordinatorLayout,
-                                child: BottomNavigationView,
-                                target: View,
-                                dxConsumed: Int, dyConsumed: Int,
-                                dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {
+    override fun onNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: BottomNavigationView,
+        target: View,
+        dxConsumed: Int,
+        dyConsumed: Int,
+        dxUnconsumed: Int,
+        dyUnconsumed: Int,
+        type: Int
+    ) {
         if (dyConsumed > 0) {
             slideDown(child)
         } else if (dyConsumed < 0) {

@@ -1,7 +1,7 @@
 package at.shockbytes.util.adapter
 
 /**
- * @author  Martin Macheiner
+ * Author:  Martin Macheiner
  * Date:    09.09.2015
  */
 interface ItemTouchHelperAdapter {
@@ -11,5 +11,4 @@ interface ItemTouchHelperAdapter {
     fun onItemMoveFinished()
 
     fun onItemDismiss(position: Int)
-
 }

@@ -8,7 +8,7 @@ import android.view.animation.Interpolator
 import android.widget.Scroller
 
 /**
- * @author  Martin Macheiner
+ * Author:  Martin Macheiner
  * Date:    19.03.2015
  */
 class NonSwipeableViewPager : ViewPager {
@@ -41,11 +41,9 @@ class NonSwipeableViewPager : ViewPager {
 
             mScroller = NonSwipeableScroller(context, interpolator.get(null) as Interpolator)
             scroller.set(this, mScroller)
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun makeFancyPageTransformation() {
@@ -68,5 +66,4 @@ class NonSwipeableViewPager : ViewPager {
             super.startScroll(startX, startY, dx, dy, this@NonSwipeableViewPager.duration)
         }
     }
-
 }

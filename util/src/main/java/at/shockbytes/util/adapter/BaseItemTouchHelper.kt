@@ -5,17 +5,19 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 
 /**
- * @author  Martin Macheiner
+ * Author:  Martin Macheiner
  * Date:    09.09.2015
  */
-class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
-                          private val allowSwipeToDismiss: Boolean,
-                          private val dragAccess: DragAccess) : ItemTouchHelper.Callback() {
+class BaseItemTouchHelper(
+    private val adapter: ItemTouchHelperAdapter,
+    private val allowSwipeToDismiss: Boolean,
+    private val dragAccess: DragAccess
+) : ItemTouchHelper.Callback() {
 
     enum class DragAccess {
-        NONE, VERTICAL, ALL 
+        NONE, VERTICAL, ALL
     }
-  
+
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
         val dragFlags = when (dragAccess) {
@@ -34,9 +36,15 @@ class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
         return allowSwipeToDismiss
     }
 
-    override fun onChildDraw(c: Canvas, recyclerView: RecyclerView,
-                             viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
-                             actionState: Int, isCurrentlyActive: Boolean) {
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             val width = viewHolder.itemView.width.toFloat()
@@ -46,11 +54,13 @@ class BaseItemTouchHelper(private val adapter: ItemTouchHelperAdapter,
         } else {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
-
     }
 
-    override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                        target: RecyclerView.ViewHolder): Boolean {
+    override fun onMove(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        target: RecyclerView.ViewHolder
+    ): Boolean {
         adapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
         return true
     }

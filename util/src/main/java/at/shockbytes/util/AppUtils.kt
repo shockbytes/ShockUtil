@@ -1,8 +1,14 @@
 package at.shockbytes.util
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import android.net.Uri
@@ -28,13 +34,14 @@ import java.io.Serializable
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.Calendar
 
 /**
- * @author Martin Macheiner
- * Date: 15.06.2017.
+ * Author:  Martin Macheiner
+ * Date:    15.06.2017
  */
-
 object AppUtils {
 
     @RequiresPermission(Manifest.permission.READ_CONTACTS)
@@ -90,6 +97,7 @@ object AppUtils {
         return bitmap
     }
 
+    @SuppressLint("RestrictedApi")
     private fun getBitmap(context: Context, drawableId: Int): Bitmap {
 
         val drawable = AppCompatDrawableManager.get().getDrawable(context, drawableId)
@@ -106,9 +114,11 @@ object AppUtils {
         }
     }
 
-    fun createRoundedBitmapFromResource(context: Context,
-                                        @DrawableRes resId: Int,
-                                        @ColorRes bgRes: Int): RoundedBitmapDrawable {
+    fun createRoundedBitmapFromResource(
+        context: Context,
+        @DrawableRes resId: Int,
+        @ColorRes bgRes: Int
+    ): RoundedBitmapDrawable {
 
         val original = getBitmap(context, resId)
         val image = Bitmap.createBitmap(original.width, original.height,
@@ -139,7 +149,7 @@ object AppUtils {
         val config = Bitmap.Config.ARGB_8888
         val bmp = Bitmap.createBitmap(width, width, config)
 
-        //Text paint settings
+        // Text paint settings
         val paint = Paint()
         paint.isAntiAlias = true
         paint.isSubpixelText = true
@@ -168,8 +178,12 @@ object AppUtils {
 
     fun roundDouble(value: Double, digits: Int): Double {
 
-        if (value == 0.0 || digits < 0 || value == Double.POSITIVE_INFINITY
-                || value == Double.NaN || value == Double.NEGATIVE_INFINITY) {
+        if (value == 0.0 ||
+                digits < 0 ||
+                value == Double.POSITIVE_INFINITY ||
+                value == Double.NaN ||
+                value == Double.NEGATIVE_INFINITY
+        ) {
             return 0.00
         }
 
@@ -187,7 +201,7 @@ object AppUtils {
         // Nav icon is always instantiated at this point because calling setNavigationContentDescription ensures its existence
         var navIcon: View? = null
         if (potentialViews.size > 0) {
-            navIcon = potentialViews[0]  // navigation icon is ImageButton
+            navIcon = potentialViews[0] // navigation icon is ImageButton
         }
         // Clear content description if not previously present
         if (hadContentDescription)
@@ -215,8 +229,8 @@ object AppUtils {
     /**
      * Saves generic content to a given file
      *
-     * @param context  Application context
-     * @param obj      Serializable object to store in file
+     * @param context Application context
+     * @param obj Serializable object to store in file
      * @param filename Storage destination, file name
      * @throws IOException If file provides corrupt stream or unauthorized access
      */
