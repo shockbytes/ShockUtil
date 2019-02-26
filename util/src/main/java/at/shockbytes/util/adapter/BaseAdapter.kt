@@ -111,10 +111,12 @@ abstract class BaseAdapter<T : Any>(
     }
 
     fun moveEntity(index: Int, location: Int) {
-        val temp = data.removeAt(index)
-        data.add(location, temp)
-        notifyItemMoved(index, location)
-        notifyDataSetChanged()
+        if (index < data.size) {
+            val temp = data.removeAt(index)
+            data.add(location, temp)
+            notifyItemMoved(index, location)
+            notifyDataSetChanged()
+        }
     }
 
     fun getLocation(searching: T): Int {
