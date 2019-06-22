@@ -1,7 +1,7 @@
 package at.shockbytes.util.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 
@@ -33,7 +33,7 @@ class RecyclerViewWithEmptyView : RecyclerView {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
+    override fun setAdapter(adapter: Adapter<*>?) {
         super.setAdapter(adapter)
 
         adapter?.registerAdapterDataObserver(emptyObserver)

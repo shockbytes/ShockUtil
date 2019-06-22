@@ -1,8 +1,9 @@
 package at.shockbytes.util.adapter
 
 import android.graphics.Canvas
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
+import kotlin.math.abs
 
 /**
  * Author:  Martin Macheiner
@@ -25,7 +26,7 @@ class BaseItemTouchHelper(
             DragAccess.VERTICAL -> ItemTouchHelper.UP or ItemTouchHelper.DOWN
             DragAccess.ALL -> ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END
         }
-        return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
+        return makeMovementFlags(dragFlags, swipeFlags)
     }
 
     override fun isLongPressDragEnabled(): Boolean {
@@ -48,7 +49,7 @@ class BaseItemTouchHelper(
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             val width = viewHolder.itemView.width.toFloat()
-            val alpha = 1.0f - Math.abs(dX) / width
+            val alpha = 1.0f - abs(dX) / width
             viewHolder.itemView.alpha = alpha
             viewHolder.itemView.translationX = dX
         } else {

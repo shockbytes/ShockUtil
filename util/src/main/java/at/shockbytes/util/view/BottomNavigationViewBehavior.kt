@@ -1,18 +1,24 @@
 package at.shockbytes.util.view
 
 import android.content.Context
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.view.ViewCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 
-class BottomNavigationViewBehavior(context: Context, attrs: AttributeSet)
-    : CoordinatorLayout.Behavior<BottomNavigationView>(context, attrs) {
+class BottomNavigationViewBehavior(
+    context: Context,
+    attrs: AttributeSet
+) : CoordinatorLayout.Behavior<BottomNavigationView>(context, attrs) {
 
     private var height: Int = 0
 
-    override fun onLayoutChild(parent: CoordinatorLayout, child: BottomNavigationView, layoutDirection: Int): Boolean {
+    override fun onLayoutChild(
+        parent: CoordinatorLayout,
+        child: BottomNavigationView,
+        layoutDirection: Int
+    ): Boolean {
         height = child.height
         return super.onLayoutChild(parent, child, layoutDirection)
     }

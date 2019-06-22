@@ -8,7 +8,7 @@ fun Double.roundToDigits(digits: Int): Double {
     if (this == 0.0 ||
         digits < 0 ||
         this == Double.POSITIVE_INFINITY ||
-        this == Double.NaN ||
+        this.isNaN() ||
         this == Double.NEGATIVE_INFINITY
     ) {
         return 0.00

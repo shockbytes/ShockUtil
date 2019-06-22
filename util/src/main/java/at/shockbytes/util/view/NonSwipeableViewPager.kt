@@ -1,7 +1,7 @@
 package at.shockbytes.util.view
 
 import android.content.Context
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.animation.Interpolator
@@ -34,9 +34,9 @@ class NonSwipeableViewPager : ViewPager {
     private fun initialize() {
 
         try {
-            val scroller = ViewPager::class.java.getDeclaredField("mScroller")
+            val scroller = androidx.viewpager.widget.ViewPager::class.java.getDeclaredField("mScroller")
             scroller.isAccessible = true
-            val interpolator = ViewPager::class.java.getDeclaredField("sInterpolator")
+            val interpolator = androidx.viewpager.widget.ViewPager::class.java.getDeclaredField("sInterpolator")
             interpolator.isAccessible = true
 
             mScroller = NonSwipeableScroller(context, interpolator.get(null) as Interpolator)

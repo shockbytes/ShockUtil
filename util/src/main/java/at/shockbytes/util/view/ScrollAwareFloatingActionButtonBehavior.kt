@@ -1,9 +1,10 @@
 package at.shockbytes.util.view
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.view.ViewCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.core.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 
@@ -11,8 +12,10 @@ import android.view.View
  * Author:  Martin Macheiner
  * Date:    28.10.2015
  */
-class ScrollAwareFloatingActionButtonBehavior(context: Context, attrs: AttributeSet)
-    : FloatingActionButton.Behavior(context, attrs) {
+class ScrollAwareFloatingActionButtonBehavior(
+    context: Context,
+    attrs: AttributeSet
+) : FloatingActionButton.Behavior(context, attrs) {
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -42,6 +45,7 @@ class ScrollAwareFloatingActionButtonBehavior(context: Context, attrs: Attribute
 
         if (dyConsumed > 0 && child.visibility == View.VISIBLE) {
             child.hide(object : FloatingActionButton.OnVisibilityChangedListener() {
+                @SuppressLint("RestrictedApi")
                 override fun onHidden(fab: FloatingActionButton?) {
                     super.onHidden(fab)
                     fab?.visibility = View.INVISIBLE
