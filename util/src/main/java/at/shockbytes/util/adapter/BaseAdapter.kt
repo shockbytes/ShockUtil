@@ -66,10 +66,14 @@ abstract class BaseAdapter<T : Any>(
         return data.size
     }
 
-    // -----------------------------Data Section-----------------------------
+    // ----------------------------- Public API -----------------------------
+
     fun addEntity(i: Int, entity: T) {
-        data.add(i, entity)
-        notifyItemInserted(i)
+
+        val index = getIndexInRange(i)
+
+        data.add(index, entity)
+        notifyItemInserted(index)
     }
 
     fun deleteEntity(entity: T) {
@@ -80,8 +84,11 @@ abstract class BaseAdapter<T : Any>(
     }
 
     fun deleteEntity(i: Int) {
-        data.removeAt(i)
-        notifyItemRemoved(i)
+
+        val index = getIndexInRange(i)
+
+        data.removeAt(index)
+        notifyItemRemoved(index)
     }
 
     fun addEntityAtLast(entity: T) {
@@ -101,8 +108,11 @@ abstract class BaseAdapter<T : Any>(
     }
 
     fun replace(changed: T, arrayIdx: Int) {
-        data[arrayIdx] = changed
-        notifyItemChanged(arrayIdx)
+
+        val idx = getIndexInRange(arrayIdx)
+
+        data[idx] = changed
+        notifyItemChanged(idx)
     }
 
     fun clear() {
@@ -124,6 +134,10 @@ abstract class BaseAdapter<T : Any>(
     }
 
     // ----------------------------------------------------------------------
+
+    private fun getIndexInRange(index: Int): Int {
+        return index.coerceIn(0 until data.size)
+    }
 
     private fun getLocation(data: List<T>, searching: T): Int {
         return data.indexOf(searching)
