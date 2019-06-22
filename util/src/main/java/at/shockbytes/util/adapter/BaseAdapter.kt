@@ -136,7 +136,11 @@ abstract class BaseAdapter<T : Any>(
     // ----------------------------------------------------------------------
 
     private fun getIndexInRange(index: Int): Int {
-        return index.coerceIn(0 until data.size)
+        return if (data.size < 0) {
+            0
+        } else {
+            index.coerceIn(0 until data.size)
+        }
     }
 
     private fun getLocation(data: List<T>, searching: T): Int {
