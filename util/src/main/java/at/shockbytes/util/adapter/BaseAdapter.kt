@@ -11,16 +11,16 @@ import android.view.View
  */
 abstract class BaseAdapter<T : Any>(
     protected val context: Context
-) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
+) : RecyclerView.Adapter<BaseAdapter.ViewHolder<T>>() {
 
     interface OnItemClickListener<T> {
 
-        fun onItemClick(t: T, v: View)
+        fun onItemClick(content: T, position: Int, v: View)
     }
 
     interface OnItemLongClickListener<T> {
 
-        fun onItemLongClick(t: T, v: View)
+        fun onItemLongClick(content: T, position: Int, v: View)
     }
 
     interface OnItemMoveListener<T> {
@@ -58,7 +58,7 @@ abstract class BaseAdapter<T : Any>(
     var onItemClickListener: OnItemClickListener<T>? = null
     var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
         holder.bind(data[position])
     }
 
@@ -147,24 +147,29 @@ abstract class BaseAdapter<T : Any>(
         return data.indexOf(searching)
     }
 
-    abstract inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    abstract class ViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        protected lateinit var content: T
-
-        fun bind(t: T) {
-            content = t
-            bindToView(t)
-            setClickListener()
+        fun bind(
+            content: T,
+            onItemClickListener: OnItemClickListener<T>? = null,
+            onItemLongClickListener: OnItemLongClickListener<T>? = null
+        ) {
+            bindToView(content, adapterPosition)
+            setClickListener(content, onItemClickListener, onItemLongClickListener)
         }
 
-        abstract fun bindToView(t: T)
+        abstract fun bindToView(content: T, position: Int)
 
-        private fun setClickListener() {
+        private fun setClickListener(
+            content: T,
+            onItemClickListener: OnItemClickListener<T>?,
+            onItemLongClickListener: OnItemLongClickListener<T>?
+        ) {
             itemView.setOnClickListener {
-                onItemClickListener?.onItemClick(content, itemView)
+                onItemClickListener?.onItemClick(content, adapterPosition, itemView)
             }
             itemView.setOnLongClickListener {
-                onItemLongClickListener?.onItemLongClick(content, itemView)
+                onItemLongClickListener?.onItemLongClick(content, adapterPosition, itemView)
                 true
             }
         }
