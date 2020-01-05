@@ -1,10 +1,10 @@
 package at.shockbytes.util.adapter
 
-import android.view.View
+import android.view.ViewGroup
 
 interface ViewHolderTypeFactory<T : Any> {
 
     fun type(item: T): Int
 
-    fun create(parent: View, viewType: Int): BaseAdapter.ViewHolder<T>
+    fun create(parent: ViewGroup, viewType: Int): BaseAdapter.ViewHolder<T>
 }
