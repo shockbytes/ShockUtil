@@ -11,9 +11,9 @@ import android.view.View
  */
 abstract class BaseAdapter<T : Any>(
     protected val context: Context,
-    private val onItemClickListener: OnItemClickListener<T>? = null,
-    private val onItemLongClickListener: OnItemLongClickListener<T>? = null,
-    private val onItemMoveListener: OnItemMoveListener<T>? = null
+    protected val onItemClickListener: OnItemClickListener<T>? = null,
+    protected val onItemLongClickListener: OnItemLongClickListener<T>? = null,
+    protected val onItemMoveListener: OnItemMoveListener<T>? = null
 ) : RecyclerView.Adapter<BaseAdapter.ViewHolder<T>>() {
 
     interface OnItemClickListener<T> {
