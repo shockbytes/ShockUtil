@@ -10,7 +10,10 @@ import android.view.View
  * Date:    05.03.2017
  */
 abstract class BaseAdapter<T : Any>(
-    protected val context: Context
+    protected val context: Context,
+    private val onItemClickListener: OnItemClickListener<T>? = null,
+    private val onItemLongClickListener: OnItemLongClickListener<T>? = null,
+    private val onItemMoveListener: OnItemMoveListener<T>? = null
 ) : RecyclerView.Adapter<BaseAdapter.ViewHolder<T>>() {
 
     interface OnItemClickListener<T> {
@@ -54,12 +57,8 @@ abstract class BaseAdapter<T : Any>(
 
     protected val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    var onItemMoveListener: OnItemMoveListener<T>? = null
-    var onItemClickListener: OnItemClickListener<T>? = null
-    var onItemLongClickListener: OnItemLongClickListener<T>? = null
-
     override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], onItemClickListener, onItemLongClickListener)
     }
 
     override fun getItemCount(): Int {

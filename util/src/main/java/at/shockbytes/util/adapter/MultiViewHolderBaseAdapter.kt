@@ -3,7 +3,12 @@ package at.shockbytes.util.adapter
 import android.content.Context
 import android.view.ViewGroup
 
-abstract class MultiViewHolderBaseAdapter<T : Any>(context: Context) : BaseAdapter<T>(context) {
+abstract class MultiViewHolderBaseAdapter<T : Any>(
+    context: Context,
+    onItemClickListener: OnItemClickListener<T>? = null,
+    onItemLongClickListener: OnItemLongClickListener<T>? = null,
+    onItemMoveListener: OnItemMoveListener<T>? = null
+) : BaseAdapter<T>(context, onItemClickListener, onItemLongClickListener, onItemMoveListener) {
 
     abstract val vhFactory: ViewHolderTypeFactory<T>
 
